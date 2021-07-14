@@ -112,11 +112,4 @@ db.libros.find({$text: {$search: "paris"}}).sort({titulo: 1})
 
 db.libros.find({$text: {$search: "paris"}}, {score: {$meta: "textScore"}}).sort({score: {$meta: "textScore"}})
 
-// Set de datos
 
-[
-    { "name" : "Gas Natural", "cif" : "A12345668", "adress" : "Gran Vía 40", "cp" : "28001", "city" : "Madrid", "contact" : { "name" : "Juan", "surname" : "Pérez", "phone" : "666543132", "email" : "juan@gas.com" }, "createdAt" : ISODate("2021-06-21T15:26:03.180Z"), "updatedAt" : ISODate("2021-06-21T15:26:03.180Z") },
-{ "name" : "Jazztel España S.A.", "cif" : "A12345654", "adress" : "Príncipe de Vergara 12", "cp" : "28010", "city" : "Madrid", "contact" : { "name" : "Laura", "surname" : "Gómez", "phone" : "", "email" : "laura@jazztel.com" }, "createdAt" : ISODate("2021-06-21T16:37:10.376Z"), "updatedAt" : ISODate("2021-06-22T15:04:43.175Z") },
-{ "name" : "Telefónica España S.A.", "cif" : "A44412342", "adress" : "Gran Vía 30", "cp" : "28001", "city" : "Madrid", "contact" : { "name" : "Juan", "surname" : "López", "phone" : "", "email" : "juan@telefonica.com" }, "createdAt" : ISODate("2021-06-21T17:18:28.944Z"), "updatedAt" : ISODate("2021-06-22T14:56:06.816Z") },
-  { "name" : "Orange", "cif" : "A44433311", "adress" : "Serrano Galvache 30", "cp" : "28033", "city" : "Madrid", "contact" : { "name" : "Lucía", "surname" : "Gómez", "phone" : "", "email" : "lgomez@orange.com" }, "createdAt" : ISODate("2021-06-22T16:14:28.755Z"), "updatedAt" : ISODate("2021-06-22T16:14:28.755Z") },
-]
