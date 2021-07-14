@@ -19,3 +19,63 @@
 
 // Set datos maraton ver maraton.js
 
+// Creamos índice simple en el campo dni
+
+db.runners.createIndex({dni: 1})
+
+db.runners.find({dni: "79506367A"}).explain('allPlansExecution')
+
+// Uso de varios índices simples
+
+db.runners.createIndex({surname1: 1})
+
+db.runners.createIndex({age: 1})
+
+db.runners.find({surname1: "Etxevarría", age: {$gte: 18}}).explain('allPlansExecution')
+
+// Puede hacer intersección de índices
+
+db.runners.find({
+    $or: [
+        {surname1: "Etxevarría", age: {$gte: 18}},
+        {age: 45}
+    ]
+})
+
+// Uso de índices múltiples o compuestos
+
+db.runners.dropIndexes()
+
+db.runners.createIndex({age: 1, surname1: 1})
+
+// Consultas con todos los campos del índice
+
+db.runners.find({surname1: "Etxevarría", age: {$gte: 18}}).explain('allPlansExecution')
+
+// Consultas con un solo campo del índice (Para que use el índice normalmente los campos que
+// lleve la consulta deben ser prefijos del índice)
+
+db.runners.find({age: {$gte: 50}}).explain('allPlansExecution') // Usa el índice
+
+db.runners.find({surname1: 'Nadal'}).explain('allPlansExecution') // No lo usa porque surname1 no
+// es prefijo de age_1_surname_1
+
+// Prefijos para saber si se usará un índice ó no (B-TREE)
+
+db.foo.createIndex({a: 1, b: 1, c: 1})
+
+// Prefijos
+
+{a: 'valor'}
+{a: 'valor', b: 'valor'}
+{a: 'valor', b: 'valor', c: 'valor'}
+{a: 'valor', b: 'valor', c: 'valor', ...}
+
+db.runners.dropIndexes()
+
+db.runners.createIndex({age: 1, surname1: 1, dni: 1})
+
+db.runners.find({surname1: 'Nadal', age: 20}).explain('allPlansExecution') // ok
+db.runners.find({dni: '33251234P', surname1: 'Nadal', age: 20}).explain('allPlansExecution') // ok
+db.runners.find({dni: '33251234P', age: {$gte: 50}}).explain('allPlansExecution') // ???
+db.runners.find({name: 'Fernando', age: {$gte: 50}}).explain('allPlansExecution') // ok

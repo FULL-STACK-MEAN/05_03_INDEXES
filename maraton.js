@@ -15,6 +15,6 @@ for (i = 0; i < 2000000; i++) {
         surname1: surnames[Math.floor(Math.random() * surnames.length)],
         surname2: surnames[Math.floor(Math.random() * surnames.length)],
         age: Math.floor(Math.random() * 100),
-        dni: Math.floor(Math.random() * 1e8 + dniWords[Math.floor(Math.random() * dniWords.length)])
+        dni: Math.floor(Math.random() * 1e8) + dniWords[Math.floor(Math.random() * dniWords.length)]
     })
 }
